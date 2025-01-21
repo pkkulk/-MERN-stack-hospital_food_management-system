@@ -7,6 +7,7 @@ const Tracer= require("./routes/Track");
 const authRoutes = require("./routes/auth");
 const creates = require("./routes/createuser");
 
+const de = require("./routes/delete");
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -24,6 +25,8 @@ mongoose.connect(process.env.MONGO_URI,{
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/createuser", creates);
+
+app.use("/api/delete", de);
 
 app.use("/api/Track", Tracer);
 app.get("/", async (req, res) => {

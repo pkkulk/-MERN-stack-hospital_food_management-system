@@ -69,7 +69,7 @@ function Pantry() {
       console.log("Error fetching diet chart:", error)
     }
   }
- const complete =async ({task_id,meal})=>{
+ const complete =async ({staff_id,task_id,meal})=>{
   if(!meal)
   {
     alert("pleas enter meal box number");
@@ -82,7 +82,7 @@ function Pantry() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify( {task_id,meal}),
+      body: JSON.stringify( {staff_id,task_id,meal}),
     })
     const data = await response.json();
     setStatus("completed")
@@ -157,9 +157,13 @@ function Pantry() {
                       <li><strong>Delivery ID:</strong> {task.delivery_id}</li>
                       <li>  <strong>Staff ID:</strong> {task.staff_id} <br /></li>
                       <li><strong>Die chart id:</strong><button onClick={() => handle({die_chart_id:task.die_chart_id})} style={{ color: "blue", cursor: "pointer" }}>
-              {task.die_chart_id}
-            </button> 
- <br /></li><li><label>enter meal box number:<input type="text" className="border-black border-2" name="meal" value={meal} onChange={handleMeal}/></label></li>
+                               {task.die_chart_id}
+                          </button> 
+                      <br /></li><li>
+                  <label>enter meal box number:
+                  <input type="text" className="border-black border-2" name="meal" value={meal} onChange={handleMeal}
+               disabled={ status === "in progress" }
+                        /></label></li>
                      </div>
                    
                  
@@ -169,7 +173,7 @@ function Pantry() {
                 </div>
                 {status === "pending" ? (
             <button
-              onClick={() => complete({task_id:task.task_id,meal:meal})} // Pass task ID
+              onClick={() => complete({staff_id:task.staff_id,task_id:task.task_id,meal:meal})} // Pass task ID
               className="btn btn-primary  bg-blue-400 p-5 rounded-xl hover:bg-blue-700 text-white font-bold"
             >
               Mark as Completed

@@ -113,7 +113,7 @@ router.post("/track2", async (req, res) => {
   });
   router.post("/task2", async (req, res) => {
     try {
-        const { task_id, meal } = req.body; // Corrected destructuring syntax
+        const { staff_id,task_id, meal } = req.body; // Corrected destructuring syntax
         console.log("Got task ID for updating status", task_id);
         console.log("Got meal box number",meal);
         if (!task_id) {
@@ -121,12 +121,16 @@ router.post("/track2", async (req, res) => {
         }
 
         const data = await Task.findOne({ task_id });
+        const d2=await PT.updateMany({staff_id},{$set: {availability:true} });
         if (!data) {
             return res.status(404).json({ message: "No tasks found" });
         }
+        if (!d2) {
+          console.log("no avalability change of staff");
+        }
 
         // Update the task's status and meal
-        data.status = "In progress";
+        data.status = "in progress";
         data.meal = meal; // Corrected assignment
 
         await data.save();

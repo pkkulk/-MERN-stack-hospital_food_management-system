@@ -35,6 +35,7 @@ function Pantry1() {
   };
 
   const handleAssignTask = (staffId) => {
+    console.log("staff id is",staffId);
     navigate("/assigntask", { state: { staff_id: staffId } });
   };
 

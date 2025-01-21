@@ -5,7 +5,7 @@ const TaskSchema = new mongoose.Schema({
     die_chart_id: { type: String, required: true },
     staff_id: { type: String, required: true },
     delivery_id: { type: String, required: true },
-    status: { type: String, enum: ['pending', 'In progress', 'completed'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'in progress', 'completed'], default: 'pending' },
     prepared_at: { type: Date },
     delivered_at: { type: Date },
     task_des: { type: String },

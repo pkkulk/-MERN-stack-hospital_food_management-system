@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 const AssignTask = ({ onTaskAssigned }) => {
-
+const navigate=useNavigate();
 const location=useLocation();
 const  id = location.state.staff_id || {};
   const [taskDetails, setTaskDetails] = useState({
@@ -71,6 +70,7 @@ fet();
       if (response.ok) {
         const newTask = await response.json();
         alert("Task assigned successfully!");
+        navigate('/manager/pantry1');
         setTaskDetails({ task_id: "",die_chart_id:"", patient_id: "", staff_id: "", delivery_id: "",tesk_des: "" });
         if (onTaskAssigned) {
           onTaskAssigned(newTask);

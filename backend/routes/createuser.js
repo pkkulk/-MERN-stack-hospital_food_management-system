@@ -37,8 +37,10 @@ router.post("/delivery",async(req,res) => {
         try{
       const user = await Task.insertMany([{task_id,patient_id,die_chart_id,staff_id,delivery_id,status,meal,task_des}])
      
-         const b=await pant.updateOne({staff_id:"S001"},{$set:{availability:false}});
-      console.log("the data of task inserted succeesfully",user[0],"availability changes to false of",b);
+         const b=await pant.updateOne({staff_id},{$set:{availability:false}});
+
+         const b2=await dri.updateOne({delivery_id},{$set:{availability:false}});
+      console.log("the data of task inserted succeesfully",user[0],"availability changes to false of",b,"availability changes to false of delivery",b2);
    res.status(200).json({message:"Done"});
      }
       catch(error){

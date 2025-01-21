@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 
 function Delivery() {
   const [menuOption, setMenuOption] = useState("assignedTasks"); // "personalInfo", "editPersonalInfo", "assignedTasks"
   const [availability,setAvailability] =useState(true);
+  const [t,setAvailability2] =useState(true);
   const [name,setName]=useState("");
   const[tasks,setTasks]=useState([]);
   const [info,setInfo]=useState("")
   const[contact,setcontact]=useState("");
   const[status,setStatus]=useState("");
+  const navigate=useNavigate();
   const location=useLocation();
   const id = location.state?.username;
 
@@ -41,8 +42,8 @@ function Delivery() {
           setTasks(Array.isArray(data) ? data : [data]);
 
           // Check the status of the first task (or all tasks if needed) and set the state
-          if (data.status === "In progress") {
-              setStatus("In progress");
+          if (data.status === "in progress") {
+              setStatus("in progress");
           } else if (data.status === "completed") {
               setStatus("complete");
           }
@@ -82,6 +83,11 @@ useEffect(()=>{
   fetchAvailability();
   fetchData();
 }, []);
+const handlelogout=()=>{
+  localStorage.removeItem("authToken");
+  alert("Do you really want to exit")
+  navigate("/first");
+ }
 const handleSubmitPersonalInfo = async () => {
   try {
 
@@ -149,7 +155,8 @@ return (
    <div className="flex md:flex-1">
       <h1 className="text-3xl font-bold text-white  ">Delivery Dashboard</h1>
       <h1  className="text-xl font-bold text-white pl-96">DeliveryId:{id}</h1>
-       <IoIosLogOut size={60} className="text-white  pb-4 cursor-pointer fixed top-3 right-8" />
+       <IoIosLogOut size={60} onClick={handlelogout}
+       className="text-white  pb-4 cursor-pointer fixed top-3 right-8" />
        </div>
    </div>
    <div className="bg-white shadow-lg rounded-lg w-11/12 max-w-4xl p-6 mt-12">
@@ -284,13 +291,18 @@ return (
                  
                     <div className="flex space-x-9">
                 <h2 className="font-medium mt-2">meal box contact:{task.meal}</h2>
-                    <button
-                     onClick={() => markTaskComplete({task_id:task.task_id})}
-                    
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
-                    >
-                      Mark Complete
-                    </button></div>
+                <button
+              onClick={() => markTaskComplete({ task_id: task.task_id })}
+               disabled={task.status === 'completed'} // Disable if task is completed
+               className={`px-4 py-2 rounded-md transition ${
+                  task.status === 'completed'
+                 ? 'bg-gray-400 text-gray-700 cursor-not-allowed' // Styling for disabled state
+                  : 'bg-blue-500 text-white hover:bg-blue-600' // Styling for active state
+                   }`}
+                 >
+  {status === 'completed' ? 'Completed' : 'Mark Complete'}
+</button>
+</div>
                 </li>
             </ul>
             ))}</div>

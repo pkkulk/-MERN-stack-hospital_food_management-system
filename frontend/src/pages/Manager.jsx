@@ -11,20 +11,51 @@ const Manager = () => {
   const location = useLocation();
   const navigate=useNavigate();
   // Fetch data on component load
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/Track/track"); // Replace with your backend URL
+      const data = await response.json();
+      setTasks(data); // Update the state with fetched data
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  }
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/Track/track"); // Replace with your backend URL
-        const data = await response.json();
-        setTasks(data); // Update the state with fetched data
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    };
 
     fetchTasks(); // Call the fetch function
   }, []); // Empty dependency array to run only on component mount
+  const deleteTask = async (task_id,staff_id,delivery_id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this task?');
+  
+    if (confirmDelete) {
+      try {
+         console.log('Deleting task with ID:', task_id); // Debugging log
 
+
+        const response = await fetch(`http://localhost:5000/api/delete/tasks`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ task_id,staff_id,delivery_id}),
+        });
+  
+        if (response.ok) {
+          alert('Task deleted successfully');
+          // Update task list in the UI
+          fetchTasks();
+        } else {
+          const errorData = await response.json();
+          alert(`Error: ${errorData.message}`);
+        }
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Error deleting task');
+      }
+    }
+  };
+  
+  
  const handlelogout=()=>{
   localStorage.removeItem("authToken");
   alert("Do you really want to exit")
@@ -116,6 +147,8 @@ const Manager = () => {
                     <th className="border-2 border-blue-300">Staff ID</th>
                     <th className="border-2 border-blue-300">Delivery ID</th>
                     <th className="border-2 border-blue-300">Status</th>
+                    <th className="border-2 border-blue-300">Actions</th>
+                
                   </tr>
                 </thead>
                 <tbody className="border-2 w-full border-blue-300">
@@ -129,7 +162,14 @@ const Manager = () => {
                       <td className="border-2 border-blue-300">{task.staff_id}</td>
                       <td className="border-2 border-blue-300">{task.delivery_id}</td>
                       <td className="border-2 border-blue-300">{task.status}</td>
-                   
+                     <td className="border-2 border-blue-300">
+                      <button className="font-medium text-white bg-blue-600 rounded-lg p-4" 
+                      onClick ={() =>deleteTask({task_id: task.task_id,staff_id:task.staff_id,delivery_id:task.delivery_id})}
+                      hidden={task.status != "completed" }>
+                        Delete
+                      </button>
+
+                     </td>
                     </tr>
                   ))}
                 </tbody>
