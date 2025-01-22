@@ -143,10 +143,11 @@ const markTaskComplete = async({task_id}) => {
       body: JSON.stringify( {task_id}),
     })
   const data = await response.json();
+
   if(response.ok)
     {
      alert("status updated task completed from your side");
-     {data.status == "In progress" ? setStatus("In progess") :setStatus("complete")}
+     {data.status == "completed" ? setStatus("completed") :setStatus("in progress")}
     }
    };
 return (
@@ -293,9 +294,9 @@ return (
                 <h2 className="font-medium mt-2">meal box contact:{task.meal}</h2>
                 <button
               onClick={() => markTaskComplete({ task_id: task.task_id })}
-               disabled={task.status === 'completed'} // Disable if task is completed
+               disabled={status === 'completed'} // Disable if task is completed
                className={`px-4 py-2 rounded-md transition ${
-                  task.status === 'completed'
+                  status === 'completed'
                  ? 'bg-gray-400 text-gray-700 cursor-not-allowed' // Styling for disabled state
                   : 'bg-blue-500 text-white hover:bg-blue-600' // Styling for active state
                    }`}

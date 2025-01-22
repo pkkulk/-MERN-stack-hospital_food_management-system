@@ -29,8 +29,7 @@ const Patient = () => {
             <th className="sticky top-0 border p-2">Room/Bed</th>
             <th className="sticky top-0 border p-2">Allergies</th>
             <th className="border p-2 sticky top-0">Disease</th>
-            <th className="border p-2 sticky top-0">Actions</th>
-          </tr>
+             </tr>
         </thead>
         <tbody>
             {data.map((d) => (
@@ -41,16 +40,7 @@ const Patient = () => {
             <td className="border p-2">{d.room_number}</td>
             <td className="border p-2">{d.allergies}</td>
             <td className="border p-2">{d.diseases}</td>
-            <td className="border p-2">
-              {/* Button to Assign Diet Plan */}
-              <button className="bg-blue-500 text-white px-2 py-1 rounded">
-                Assign Diet Plan
-              </button>
-              {/* Button to View Diet Plan */}
-              <button className="ml-2 bg-gray-500 text-white px-2 py-1 rounded">
-                View Diet Plan
-              </button>
-            </td>
+           
           </tr>
             ))}
           {/* Add more rows dynamically */}

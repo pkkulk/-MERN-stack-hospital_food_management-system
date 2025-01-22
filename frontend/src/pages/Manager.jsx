@@ -8,6 +8,7 @@ import { IoIosLogOut } from "react-icons/io";
 
 const Manager = () => {
   const [tasks, setTasks] = useState([]); // State to store tasks
+  const[a2,setA]=useState(null);
   const location = useLocation();
   const navigate=useNavigate();
   // Fetch data on component load
@@ -21,10 +22,32 @@ const Manager = () => {
     }
   }
   useEffect(() => {
-
+    active();
     fetchTasks(); // Call the fetch function
+   
   }, []); // Empty dependency array to run only on component mount
-  const deleteTask = async (task_id,staff_id,delivery_id) => {
+
+  const updateTasks = async (staff_id,delivery_id) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/delete/update",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(staff_id,delivery_id),
+      }); // Replace with your backend URL
+      const data = await response.json(); // Update the state with fetched data
+      if(response.ok)
+      {
+        console.log("updated suceessfully");
+      }
+    } catch (error) {
+
+      console.error("Error fetching tasks:", error);
+    }
+  }
+
+  const deleteTask = async ({task_id,staff_id,delivery_id}) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this task?');
   
     if (confirmDelete) {
@@ -33,13 +56,14 @@ const Manager = () => {
 
 
         const response = await fetch(`http://localhost:5000/api/delete/tasks`, {
-          method: 'POST',
+          method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ task_id,staff_id,delivery_id}),
+          body: JSON.stringify({ task_id}),
         });
-  
+        console.log("sending id to update",{staff_id}," ",{delivery_id});
+           updateTasks({staff_id,delivery_id});
         if (response.ok) {
           alert('Task deleted successfully');
           // Update task list in the UI
@@ -55,6 +79,17 @@ const Manager = () => {
     }
   };
   
+  const active= async ()=>{
+    try{
+    const response=await fetch("http://localhost:5000/api/auth/actives");
+      const d= await response.json();
+      setA(d);
+      console.log(d);
+    }
+    catch(error){
+     console.log('error',error);
+    }
+  }
   
  const handlelogout=()=>{
   localStorage.removeItem("authToken");
@@ -65,9 +100,10 @@ const Manager = () => {
   const renderDefaultDashboard = location.pathname === "/manager";
 
   return (
-    <div className="w-screen min-h-screen flex  bg-slate-200 ">
-      {/* Sidebar */}
-      <div className="w-72 h-screen fixed bg-slate-200">
+    <div className="w-screen min-h-screen flex flex-col sm:flex-row bg-slate-200">
+    {/* Sidebar */}
+    <div className="w-72 h-screen fixed bg-slate-200 hidden sm:block">
+
         <div className="w-64 space-y-4 p-2 h-[calc(100%-30px)] m-3 bg-gradient-to-b from-slate-800 to-slate-700 rounded-3xl">
           <h1 className="mx-auto w-32 text-white font-bold">Manager123</h1>
           <hr />
@@ -107,26 +143,29 @@ const Manager = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="ml-72 flex-grow p-6  bg-slate-100">
-        {renderDefaultDashboard ? (
-          <>
-            <h1 className="font-medium mt-4 text-2xl">Dashboard</h1>
-            <div className="flex space-x-4">
+      <div className="ml-0 sm:ml-72 flex-grow p-6 bg-slate-100">
+      {renderDefaultDashboard ? (
+          <> 
+          <h1 className="font-medium mt-4 text-lg sm:text-2xl">Dashboard</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
               <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
                 <h1>Active patients</h1>
-                +9
+                {a2 ? a2.pa : 'Loading...'}
               </div>
               <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
-                <h1>Active patients</h1>
-                +9
+                <h1>Active pantry Staff</h1>
+                {a2 ? `${a2.pa3} / ${a2.pa2} ` : 'Loading...'}
               </div>
               <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
-                <h1>Active patients</h1>
-                +9
+                <h1>Task Completed</h1>
+                {a2 ? `${a2.t2} / ${a2.t1} ` : 'Loading...'}
+
               </div>
               <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
-                <h1>Active patients</h1>
-                +9
+                <h1>Active Delivery Staff</h1>
+              
+                {a2 ?`${ a2.da2}/ ${ a2.da1}`: 'Loading...'}
               </div>
             </div>
             <hr /><div className="flex">
@@ -134,15 +173,12 @@ const Manager = () => {
                                                                             </div>
             
             <hr />
-            <div className="bg-white border-2 border-slate-400 p-2 rounded-lg">
-              <table
-                border="1"
-                cellPadding="10"
-                className="border-2 w-full border-blue-300"
-              >
-                <thead className="border-2 w-full bg-blue-200 border-blue-300">
+            <div className="bg-white border-2 border-slate-400 p-2 rounded-lg overflow-auto">
+      <table className="border-2 w-full border-blue-300 p-4">
+  
+                <thead className=" p-4 border-2 w-full bg-blue-200 border-blue-300">
                   <tr className="border-2 w-full text-center border-blue-300">
-                    <th className="border-2 border-blue-300">Task ID</th>
+                    <th className="border-2 border-blue-300 p-4">Task ID</th>
                     <th className="border-2 border-blue-300">Die Chart ID</th>
                     <th className="border-2 border-blue-300">Staff ID</th>
                     <th className="border-2 border-blue-300">Delivery ID</th>
@@ -157,7 +193,7 @@ const Manager = () => {
                       className="border-2 w-full text-center border-blue-300"
                       key={task._id}
                     >
-                      <td className="border-2 border-blue-300">{task.task_id}</td>
+                      <td className="border-2 border-blue-300 p-3">{task.task_id}</td>
                       <td className="border-2 border-blue-300">{task.die_chart_id}</td>
                       <td className="border-2 border-blue-300">{task.staff_id}</td>
                       <td className="border-2 border-blue-300">{task.delivery_id}</td>
