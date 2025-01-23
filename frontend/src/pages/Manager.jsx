@@ -6,14 +6,17 @@ import image from "../assets/image.png";
 import { BASE_URL } from "../config";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
+import { FiAlignJustify } from "react-icons/fi";
+
 
 const Manager = () => {
   const [tasks, setTasks] = useState([]); // State to store tasks
   const[a2,setA]=useState(null);
+  const [show,setShow]=useState(false);
   const location = useLocation();
   const navigate=useNavigate();
   // Fetch data on component load
-  const fetchTasks = async () => {
+  const fetchTasks = async () => {  
     try {
       const response = await fetch(`${BASE_URL}/api/Track/track`); // Replace with your backend URL
       const data = await response.json();
@@ -91,10 +94,21 @@ const Manager = () => {
      console.log('error',error);
     }
   }
+  const toggle = () =>{
+    setShow(!show);
+  }
+  const handleLinkClick = () => {
+    if (window.innerWidth < 768) {
+      setShow(false); // Automatically hide sidebar on small screens
+    }
+  };
   
  const handlelogout=()=>{
   localStorage.removeItem("authToken");
   alert("Do you really want to exit")
+  if (window.innerWidth < 768) {
+    setShow(false); // Automatically hide sidebar on small screens after logout
+  }
   navigate("/first");
  }
   // Default dashboard content when the route is "/manager"
@@ -103,35 +117,39 @@ const Manager = () => {
   return (
     <div className="w-screen min-h-screen flex flex-col sm:flex-row bg-slate-200">
     {/* Sidebar */}
-    <div className="w-72 h-screen fixed bg-slate-200 hidden sm:block">
-
+    <FiAlignJustify className="cursor-pointer" size={30} onClick={toggle}/>
+    
+    <div className={`${
+          show ? 'block' : 'hidden'
+        } md:block w-72 h-screen fixed bg-slate-200`}>
+        
         <div className="w-64 space-y-4 p-2 h-[calc(100%-30px)] m-3 bg-gradient-to-b from-slate-800 to-slate-700 rounded-3xl">
           <h1 className="mx-auto w-32 text-white font-bold">Manager123</h1>
           <hr />
           {/* Dashboard Link */}
 
-          <Link to="/manager">
+          <Link to="/manager" onClick={handleLinkClick}>
             <div className="flex rounded-xl space-x-6 hover:bg-blue-500 p-2 pl-10 mx-auto w-60">
               <RxDashboard size={24} className="text-white" />
               <h1 className="text-white font-bold">Dashboard</h1>
             </div>
           </Link>
           {/* Patient Link */}
-          <Link to="/manager/patient">
+          <Link to="/manager/patient" onClick={handleLinkClick}>
             <div className="flex rounded-xl space-x-2 hover:bg-blue-500 p-2 pl-7 mx-auto w-60">
               <img src={d} className="w-14 h-9 bg-transparent" alt="Patient" />
               <h1 className="h-9 pt-2 text-white font-bold">Patient</h1>
             </div>
           </Link>
           {/* Pantry Staff Link */}
-          <Link to="/manager/pantry1">
+          <Link to="/manager/pantry1" onClick={handleLinkClick}>
             <div className="flex rounded-xl space-x-2 hover:bg-blue-500 p-2 pl-7 mx-auto w-60">
               <img src={image} className="w-14 h-9 bg-transparent" alt="Pantry Staff" />
               <h1 className="h-9 pt-2 text-white font-bold">Pantry staff</h1>
             </div>
           </Link>
           {/* Delivery Person Link */}
-          <Link to="/manager/delivery1">
+          <Link to="/manager/delivery1"onClick={handleLinkClick}>
             <div className="flex rounded-xl space-x-4 hover:bg-blue-500 pt-4 pl-10 mx-auto w-60">
               <img src={d2} className="w-9 h-9 bg-transparent" alt="Delivery Person" />
               <h1 className="text-white font-bold">Delivery person</h1>
