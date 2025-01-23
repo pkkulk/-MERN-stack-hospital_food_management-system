@@ -9,13 +9,24 @@ const creates = require("./routes/createuser");
 
 const de = require("./routes/delete");
 const app = express();
-app.use(bodyParser.json());
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'https://mern-stack-hospital-food-management-system-frontend.vercel.app' // Deployed frontend
+];
 
-app.use(cors({
-  origin: "https://mern-stack-hospital-food-management-system-frontend.vercel.app", // Frontend domain
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-  credentials: true, // If using cookies or authentication
-}));
+app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true // Allow cookies if needed
+  })
+);
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI,{
   useNewUrlParser: true,
