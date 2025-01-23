@@ -15,15 +15,15 @@ function First()
       
     return(
         <><div className="mx-auto  space-y-3 p-9 sm:p-1">
-            <button  onClick={next} className="text-white absolute top-0 right-0 mr-10 mt-10 font-bold bg-blue-700 rounded-lg p-3 ml-28 mx-auto">
+            <button  onClick={next} className="text-white absolute top-0 right-0 mr-1 mt-8 font-bold bg-blue-700 rounded-lg p-3 ml-28 mx-auto">
                 signup 
               </button>
-        <h1 className="text-7xl mx-auto w-40 "> Login </h1>
+        <h1 className="text-7xl mx-auto w-40  "> Login </h1>
 
         <hr></hr>
-        <h1 className="text-4xl mx-auto w-96 pl-20 text-red-600"> Select User Type </h1>
+        <h1 className="text-4xl lg:mx-auto w-96 lg:pl-20 text-red-600 m-20"> Select User Type </h1>
 
-        <div className="lg:flex lg:space-x-20 lg:ml-36 sm:flex-row sm:ml-8">
+        <div className="lg:flex lg:space-x-20 lg:ml-36 sm:flex-row sm:pl-8">
   {/* Your content goes here */}
         <p ><button onClick={() => handle("Manager")} className=" hover:shadow-2xl " >
             <FcManager size={270} />
