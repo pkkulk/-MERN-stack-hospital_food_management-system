@@ -153,13 +153,14 @@ const markTaskComplete = async({task_id}) => {
    };
 return (
 <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+  
    <div className="bg-blue-600 w-full p-4">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-white">Delivery Dashboard</h1>
           <h1 className="text-xl font-bold text-white">DeliveryId: {id}</h1>
           <IoIosLogOut
             size={30}
-            onClick={handleLogout}
+            onClick={handlelogout}
             className="text-white cursor-pointer"
           />
         </div>
