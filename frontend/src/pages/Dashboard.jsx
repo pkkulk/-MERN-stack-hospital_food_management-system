@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../config";
 import { RxDashboard } from "react-icons/rx";
 import d from "../assets/download.png"
 import d2 from "../assets/d3.png"
@@ -10,7 +11,7 @@ const Manager = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/Track/track"); // Replace with your backend URL
+        const response = await fetch(`${BASE_URL}/api/Track/track`); // Replace with your backend URL
         const data = await response.json();
         setTasks(data); // Update the state with fetched data
       } catch (error) {

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { BASE_URL } from "../config";
 const Patient = () => {
     const[data,setData]=useState([]);
 
     useEffect(()=>{
         const fetchs = async() => {
             try{
-            const response=await fetch("http://localhost:5000/api/Track/patient-data")
+            const response=await fetch(`${BASE_URL}/api/Track/patient-data`)
                  const datas=await response.json();
                  setData(datas)
             } catch(error){

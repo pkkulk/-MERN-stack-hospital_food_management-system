@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IoIosLogOut } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { BASE_URL } from "../config";
 
 function Pantry() {
   const navigate=useNavigate();
@@ -18,7 +18,7 @@ function Pantry() {
   useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/Track/track2", {
+          const response = await fetch(`${BASE_URL}/api/Track/track2`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function Pantry() {
     console.log("dats is",{die_chart_id});
 
     try{
-      const response= await fetch("http://localhost:5000/api/Track/die2",{
+      const response= await fetch(`${BASE_URL}/api/Track/die2`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ function Pantry() {
     return;
   }
   try{
-    const response= await fetch("http://localhost:5000/api/Track/task2",{
+    const response= await fetch(`${BASE_URL}/api/Track/task2`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",

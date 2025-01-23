@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../config";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 
@@ -19,7 +20,7 @@ function Delivery() {
   const fetchData = async () => {
     const delivery_id=id;
     try {
-      const response = await fetch("http://localhost:5000/api/Track/delivery2", {
+      const response = await fetch(`${BASE_URL}/api/Track/delivery2`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +57,7 @@ function Delivery() {
   const fetchAvailability = async () => {
     try {
       const delivery_id=id;
-      const response = await fetch("http://localhost:5000/api/Track/deliveryinfo",{
+      const response = await fetch(`${BASE_URL}/api/Track/deliveryinfo`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +93,7 @@ const handleSubmitPersonalInfo = async () => {
   try {
 
     const delivery_id=id;
-    const response = await fetch("http://localhost:5000/api/Track/updatePersonal", {
+    const response = await fetch(`${BASE_URL}/api/Track/updatePersonal`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +116,7 @@ const handleSubmit= async (newAvailability) => {
   try {
 
     const delivery_id=id;
-    const response = await fetch("http://localhost:5000/api/Track/updateAvailability", {
+    const response = await fetch(`${BASE_URL}/api/Track/updateAvailability`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -134,7 +135,7 @@ const handleSubmit= async (newAvailability) => {
 };
 const markTaskComplete = async({task_id}) => {
   console.log( "In progress",task_id)
-  const response = await fetch("http://localhost:5000/api/Track/delivery3",
+  const response = await fetch(`${BASE_URL}/api/Track/delivery3`,
     {
       method: "POST",
       headers: {
@@ -295,12 +296,8 @@ return (
                 <button
               onClick={() => markTaskComplete({ task_id: task.task_id })}
                disabled={status === 'completed'} // Disable if task is completed
-               className={`px-4 py-2 rounded-md transition ${
-                  status === 'completed'
-                 ? 'bg-gray-400 text-gray-700 cursor-not-allowed' // Styling for disabled state
-                  : 'bg-blue-500 text-white hover:bg-blue-600' // Styling for active state
-                   }`}
-                 >
+               className={`px-4 py-2 rounded-md transition 
+                ${status === 'completed'?'bg-gray-400 text-gray-700 cursor-not-allowed': 'bg-blue-500 text-white hover:bg-blue-600'}`}                >
   {status === 'completed' ? 'Completed' : 'Mark Complete'}
 </button>
 </div>

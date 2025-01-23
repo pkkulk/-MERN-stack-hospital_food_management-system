@@ -14,7 +14,7 @@ function Signup() {
   const handle = async (e) => {
     e.preventDefault(); // Prevent form submission default behavior
     try {
-      const response = await fetch("http://localhost:5000/api/createuser/create", {
+      const response = await fetch(`${BASE_URL}/api/createuser/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

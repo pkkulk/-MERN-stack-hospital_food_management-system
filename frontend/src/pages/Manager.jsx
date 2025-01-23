@@ -3,6 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 import d from "../assets/download.png";
 import d2 from "../assets/d3.png";
 import image from "../assets/image.png";
+import { BASE_URL } from "../config";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 
@@ -14,7 +15,7 @@ const Manager = () => {
   // Fetch data on component load
   const fetchTasks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/Track/track"); // Replace with your backend URL
+      const response = await fetch(`${BASE_URL}/api/Track/track`); // Replace with your backend URL
       const data = await response.json();
       setTasks(data); // Update the state with fetched data
     } catch (error) {
@@ -29,7 +30,7 @@ const Manager = () => {
 
   const updateTasks = async (staff_id,delivery_id) => {
     try {
-      const response = await fetch("http://localhost:5000/api/delete/update",{
+      const response = await fetch(`${BASE_URL}/api/delete/update`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ const Manager = () => {
          console.log('Deleting task with ID:', task_id); // Debugging log
 
 
-        const response = await fetch(`http://localhost:5000/api/delete/tasks`, {
+        const response = await fetch(`${BASE_URL}/api/delete/tasks`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ const Manager = () => {
   
   const active= async ()=>{
     try{
-    const response=await fetch("http://localhost:5000/api/auth/actives");
+    const response=await fetch(`${BASE_URL}/api/auth/actives`);
       const d= await response.json();
       setA(d);
       console.log(d);

@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-
+import { BASE_URL } from "../config";
 function Delivery1(){
 const [data,setData]=useState([]);
 const[filter,setFilter]=useState("");
@@ -7,7 +7,7 @@ const[filtered,setFiltered]=useState([]);
 useEffect(()=>{
 const fet= async ()=>{
       try{
-            const response=await fetch("http://localhost:5000/api/Track/delivery-data");
+            const response=await fetch(`${BASE_URL}/api/Track/delivery-data`);
                const d=await response.json();
                setData(d);
                setFiltered(d);

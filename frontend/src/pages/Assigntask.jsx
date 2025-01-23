@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BASE_URL } from "../config";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 const AssignTask = ({ onTaskAssigned }) => {
@@ -18,7 +19,7 @@ const  id = location.state.staff_id || {};
   useEffect(()=> {
     const fet= async ()=>{
       try{
-            const response=await fetch("http://localhost:5000/api/Track/die");
+            const response=await fetch(`${BASE_URL}/api/Track/die`);
                const d=await response.json();
                setData(d);
       }catch(error)
@@ -50,7 +51,7 @@ fet();
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/createuser/delivery", {
+      const response = await fetch(`${BASE_URL}/api/createuser/delivery`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

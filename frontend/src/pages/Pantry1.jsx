@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BASE_URL } from "../config";
 function Pantry1() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("");
@@ -10,7 +10,7 @@ function Pantry1() {
   useEffect(() => {
     const fet = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/Track/pantry");
+        const response = await fetch(`${BASE_URL}/api/Track/pantry`);
         const d = await response.json();
         setData(d);
         setFiltered(d);
