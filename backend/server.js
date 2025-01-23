@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: "https://your-frontend.vercel.apphttps://mern-stack-hospital-food-management-system-frontend.vercel.app", // Frontend domain
+  origin: "https://mern-stack-hospital-food-management-system-frontend.vercel.app", // Frontend domain
   methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
   credentials: true, // If using cookies or authentication
 }));
