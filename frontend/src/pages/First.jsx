@@ -29,12 +29,12 @@ function First()
   <hr className="my-4" />
 
   {/* Select User Type Heading */}
-  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:mx-auto w-fit text-center text-red-600">
+  <h1 className="text-2xl sm:text-3xl md:text-4xl mx-auto w-fit text-center text-red-600">
     Select User Type
   </h1>
 
   {/* User Type Options */}
-  <div className="lg:flex lg:space-x-10 lg:justify-center sm:flex-wrap sm:space-x-4 space-y-8 sm:space-y-0 mt-8">
+  <div className="lg:flex lg:space-x-24 lg:justify-center ml-24 lg:ml-0 sm:flex-wrap sm:space-x-4 space-y-8 sm:space-y-0 mt-8">
     {/* Manager Button */}
     <p className="text-center">
       <button 
