@@ -18,36 +18,39 @@ const Patient = () => {
     },[]);
 
   return (
-    <div className="p-6 bg-slate-100">
-      <h1 className="text-2xl font-bold mb-4">Patient Management</h1>
+    <div className="lg:p-6 bg-slate-100 sm:w-10 lg:w-full">
+  <h1 className="text-2xl font-bold mb-4">Patient Management</h1>
 
-      {/* Patient Table */}
-      <table className="w-full  border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200 sticky top-0">
-            <th className="sticky top-0 border p-2">Patient ID</th>
-            <th className="sticky top-0 border p-2">Name</th>
-            <th className="sticky top-0 border p-2">Room/Bed</th>
-            <th className="sticky top-0 border p-2">Allergies</th>
-            <th className="border p-2 sticky top-0">Disease</th>
-             </tr>
-        </thead>
-        <tbody>
-            {data.map((d) => (
-          <tr  className="border-2 w-full text-center border-blue-300"
-          key={d._id}>
+  {/* Patient Table */}
+  <div className="overflow-x-auto">
+    <table className="w-full border-collapse border border-gray-300 min-w-[600px]">
+      <thead>
+        <tr className="bg-gray-200">
+          <th className="border lg:p-2 p-1 text-left">Patient ID</th>
+          <th className="border p-2 text-left">Name</th>
+          <th className="border p-2 text-left">Room/Bed</th>
+          <th className="border p-2 text-left">Allergies</th>
+          <th className="border p-2 text-left">Disease</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((d) => (
+          <tr
+            className="border w-full text-left border-blue-300 hover:bg-blue-50"
+            key={d._id}
+          >
             <td className="border p-2">{d.patient_id}</td>
             <td className="border p-2">{d.name}</td>
             <td className="border p-2">{d.room_number}</td>
             <td className="border p-2">{d.allergies}</td>
             <td className="border p-2">{d.diseases}</td>
-           
           </tr>
-            ))}
-          {/* Add more rows dynamically */}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
   );
 };
 

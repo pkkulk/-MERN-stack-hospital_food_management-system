@@ -14,36 +14,67 @@ function First()
       }
       
     return(
-        <><div className="mx-auto  space-y-3 p-9 sm:p-1">
-            <button  onClick={next} className="text-white absolute top-0 right-0 mr-1 mt-8 font-bold bg-blue-700 rounded-lg p-3 ml-28 mx-auto">
-                signup 
-              </button>
-        <h1 className="text-7xl mx-auto w-40  "> Login </h1>
+        <>
+        <div className="mx-auto space-y-3 p-6 sm:p-2">
+  {/* Signup Button */}
+  <button 
+    onClick={next} 
+    className="text-white absolute top-0 right-0 mr-1 mt-4 font-bold bg-blue-700 rounded-lg p-2 sm:p-3">
+    Signup
+  </button>
 
-        <hr></hr>
-        <h1 className="text-4xl lg:mx-auto w-96 lg:pl-20 text-red-600 m-12"> Select User Type </h1>
+  {/* Login Heading */}
+  <h1 className="text-4xl sm:text-6xl md:text-7xl mx-auto w-fit text-center">Login</h1>
 
-        <div className="lg:flex lg:space-x-20 lg:ml-36 sm:flex-row sm:pl-8 space-y-14 pl-14">
-  {/* Your content goes here */}
-        <p className="mt-16"><button onClick={() => handle("Manager")} className=" hover:shadow-2xl" >
-            <FcManager size={270} />
-            <h1 className="mx-auto text-2xl w-28">Manager</h1>
-             </button>
-        </p>
-        <p className=" "><button onClick={() => handle("Pantry Staff")} className=" mx-auto  hover:shadow-2xl">
-            <img src={image}  className="h-60 mx-auto"/> 
-            <h1 className="mx-auto text-2xl w-28 p-3 text-center sm:ml-28">Pantry Staff</h1> 
-            </button>
-        </p>
-        <p ><button onClick={() => handle("Delivery Personnel")} className=" hover:shadow-2xl">
-            <img src={download}  className="h-60 bg-white"/>
-            <h1 className="mx-auto text-2xl w-28 p-2 text-center">Delivery Personnel</h1> 
-            </button>
-        </p>
-        </div>
-        
-        </div>
-        
+  <hr className="my-4" />
+
+  {/* Select User Type Heading */}
+  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:mx-auto w-fit text-center text-red-600">
+    Select User Type
+  </h1>
+
+  {/* User Type Options */}
+  <div className="lg:flex lg:space-x-10 lg:justify-center sm:flex-wrap sm:space-x-4 space-y-8 sm:space-y-0 mt-8">
+    {/* Manager Button */}
+    <p className="text-center">
+      <button 
+        onClick={() => handle("Manager")} 
+        className="hover:shadow-2xl flex flex-col items-center">
+        <FcManager className="w-32 h-32 sm:w-48 sm:h-48 lg:w-60 lg:h-60" />
+        <h1 className="text-lg sm:text-xl lg:text-2xl mt-2">Manager</h1>
+      </button>
+    </p>
+
+    {/* Pantry Staff Button */}
+    <p className="text-center">
+      <button 
+        onClick={() => handle("Pantry Staff")} 
+        className="hover:shadow-2xl flex flex-col items-center">
+        <img 
+          src={image} 
+          alt="Pantry Staff" 
+          className="w-32 h-32 sm:w-48 sm:h-48 lg:w-60 lg:h-60" 
+        />
+        <h1 className="text-lg sm:text-xl lg:text-2xl mt-2">Pantry Staff</h1>
+      </button>
+    </p>
+
+    {/* Delivery Personnel Button */}
+    <p className="text-center">
+      <button 
+        onClick={() => handle("Delivery Personnel")} 
+        className="hover:shadow-2xl flex flex-col items-center">
+        <img 
+          src={download} 
+          alt="Delivery Personnel" 
+          className="w-32 h-32 sm:w-48 sm:h-48 lg:w-60 lg:h-60 bg-white" 
+        />
+        <h1 className="text-lg sm:text-xl lg:text-2xl mt-2">Delivery Personnel</h1>
+      </button>
+    </p>
+  </div>
+</div>
+
         </>
     )
 }

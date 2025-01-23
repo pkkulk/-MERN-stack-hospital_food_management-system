@@ -166,22 +166,22 @@ const Manager = () => {
       {renderDefaultDashboard ? (
           <> 
           <h1 className="font-medium mt-4 text-lg sm:text-2xl">Dashboard</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid  grid-cols-2 gap-4 lg:grid-cols-4">
         
-              <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
+              <div className="bg-white py-4 px-3 text-center w-30 lg:w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
                 <h1>Active patients</h1>
                 {a2 ? a2.pa : 'Loading...'}
               </div>
-              <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
+              <div className="bg-white py-4 px-3 text-center w-30 lg:w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
                 <h1>Active pantry Staff</h1>
                 {a2 ? `${a2.pa3} / ${a2.pa2} ` : 'Loading...'}
               </div>
-              <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
+              <div className="bg-white py-4 px-3 text-center  w-30 lg:w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
                 <h1>Task Completed</h1>
                 {a2 ? `${a2.t2} / ${a2.t1} ` : 'Loading...'}
 
               </div>
-              <div className="bg-white py-4 px-3 text-center w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
+              <div className="bg-white py-4 px-3 text-center  w-30 lg:w-60 mt-4 font-bold rounded-lg border-2 border-slate-400">
                 <h1>Active Delivery Staff</h1>
               
                 {a2 ?`${ a2.da2}/ ${ a2.da1}`: 'Loading...'}
@@ -192,7 +192,7 @@ const Manager = () => {
                                                                             </div>
             
             <hr />
-            <div className="bg-white border-2 border-slate-400 p-2 rounded-lg overflow-auto">
+            <div className="bg-white border-2 border-slate-400 p-2 rounded-lg overflow-auto flex-1">
       <table className="border-2 w-full border-blue-300 p-4">
   
                 <thead className=" p-4 border-2 w-full bg-blue-200 border-blue-300">
