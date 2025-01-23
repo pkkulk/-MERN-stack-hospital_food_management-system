@@ -21,11 +21,11 @@ function First()
         <h1 className="text-7xl mx-auto w-40  "> Login </h1>
 
         <hr></hr>
-        <h1 className="text-4xl lg:mx-auto w-96 lg:pl-20 text-red-600 m-20"> Select User Type </h1>
+        <h1 className="text-4xl lg:mx-auto w-96 lg:pl-20 text-red-600 m-14"> Select User Type </h1>
 
-        <div className="lg:flex lg:space-x-20 lg:ml-36 sm:flex-row sm:pl-8 space-y-14">
+        <div className="lg:flex lg:space-x-20 lg:ml-36 sm:flex-row sm:pl-8 space-y-14 pl-14">
   {/* Your content goes here */}
-        <p ><button onClick={() => handle("Manager")} className=" hover:shadow-2xl " >
+        <p className="mt-16"><button onClick={() => handle("Manager")} className=" hover:shadow-2xl" >
             <FcManager size={270} />
             <h1 className="mx-auto text-2xl w-28">Manager</h1>
              </button>
