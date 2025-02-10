@@ -10,7 +10,7 @@ import { FiAlignJustify } from "react-icons/fi";
 
 
 const Manager = () => {
-  const [tasks, setTasks] = useState(); // State to store tasks
+  const [tasks, setTasks] = useState([]); // State to store tasks
   const[a2,setA]=useState(null);
   const [show,setShow]=useState(false);
   const location = useLocation();
